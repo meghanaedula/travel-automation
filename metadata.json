@@ -1,0 +1,6 @@
+{
+  "name": "VoyageAI - Autonomous Travel Planning Concierge",
+  "description": "Intelligent travel itinerary generator and trip planning portal powered by automated n8n workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
