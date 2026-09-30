@@ -1,6 +1,5 @@
-import React from 'react';
-import { ArrowDown, CheckCircle2, Zap, ShieldCheck, Cpu } from 'lucide-react';
-import heroImage from '../assets/images/hero_automation_workspace_1790759350245.jpg';
+import React, { useState } from 'react';
+import { ArrowDown, CheckCircle2, Zap, ShieldCheck, Cpu, Globe } from 'lucide-react';
 
 interface HeroProps {
   onScrollToForm: () => void;
@@ -9,6 +8,8 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onScrollToForm, onOpenMonitor, isN8nLive }) => {
+  const [imageError, setImageError] = useState(false);
+  const heroImageSrc = '/hero_automation_workspace.jpg';
   return (
     <section className="relative overflow-hidden bg-stone-900 text-stone-100 pt-12 pb-20 lg:pt-20 lg:pb-28 border-b border-stone-800">
       {/* Background radial accent glow */}
@@ -78,18 +79,26 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToForm, onOpenMonitor, isN8n
             <div className="relative rounded-2xl overflow-hidden border border-stone-800 bg-stone-950 shadow-2xl group">
               {/* Media Container with Fallback */}
               <div className="aspect-[4/3] sm:aspect-[16/10] relative w-full overflow-hidden bg-gradient-to-tr from-stone-900 via-stone-850 to-stone-800">
-                <img
-                  src={heroImage}
-                  alt="Modern travel automation operations workspace"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-700 opacity-90"
-                  onError={(e) => {
-                    // Resilient CSS Fallback if image path issues arise
-                    (e.currentTarget as HTMLElement).style.display = 'none';
-                  }}
-                />
+                {!imageError ? (
+                  <img
+                    src={heroImageSrc}
+                    alt="Modern travel automation operations workspace"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-700 opacity-90"
+                    onError={() => setImageError(true)}
+                  />
+                ) : (
+                  /* Styled SVG / CSS fallback if image asset is not deployed */
+                  <div className="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-stone-900 via-stone-950 to-amber-950/20 text-center">
+                    <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-3 shadow-inner">
+                      <Globe className="w-7 h-7 text-amber-400 animate-pulse" />
+                    </div>
+                    <span className="font-display font-bold text-white text-base">Autonomous Travelling Agent</span>
+                    <span className="text-stone-400 text-xs font-mono mt-1">edulameghana19.app.n8n.cloud</span>
+                  </div>
+                )}
                 {/* Measured Scrim for contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent pointer-events-none" />
               </div>
 
               {/* Inset overlay card showing live agent parameters */}
